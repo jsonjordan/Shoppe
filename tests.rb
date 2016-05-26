@@ -96,7 +96,7 @@ class TransactionParserTests < Minitest::Test
   def test_can_parse_monday
     p = TransactionParser.new file_path("monday")
     p.parse!
-
+      binding.pry
     assert_equal 5, p.transaction.count
   end
 

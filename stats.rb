@@ -70,3 +70,25 @@ p.transaction.each do |t|
   end
 end
 puts "We sold #{tools_sold} items from the Tools category"
+
+#* Our total revenue was __
+puts
+puts "Problem 4: * Our total revenue was __"
+
+items_by_quantity = {}
+p.transaction.each do |t|
+  items_by_quantity[t.item_id] = t.quantity
+end
+
+items_by_price = {}
+b.items.each do |i|
+  items_by_price[i.id] = i.price
+end
+
+total_revenue = 0
+items_by_quantity.each do |qkey,qvalue|
+  if !items_by_price[qkey].nil?
+    total_revenue += (qvalue * items_by_price[qkey])
+  end
+end
+puts "Our total revenue was $#{total_revenue}"
