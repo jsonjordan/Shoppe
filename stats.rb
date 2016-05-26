@@ -54,3 +54,19 @@ puts "We sold #{erls_sold} Ergonomic Rubber Lamps"
 #* We sold __ items from the Tools category
 puts
 puts "Problem 3: We sold __ items from the Tools category"
+
+tool_ids = []
+b.items.each do |i|
+  if i.category.include? "Tools"
+    tool_ids.push(i.id)
+  end
+end
+puts "Items in the tool catagory are #{tool_ids}"
+
+tools_sold = 0
+p.transaction.each do |t|
+  if tool_ids.include? t.item_id
+    tools_sold += t.quantity
+  end
+end
+puts "We sold #{tools_sold} items from the Tools category"
