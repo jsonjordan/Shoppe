@@ -12,7 +12,6 @@ class TransactionParser
   end
 
   def parse!
-    # binding.pry
     data.each do |transa|
       @transaction.push(Transaction.new transa.values[0],
                                         transa.values[1],
