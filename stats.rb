@@ -82,8 +82,9 @@ puts
 puts "Problem 4: * Our total revenue was __"
 
 quantity_per_item = {}
+quantity_per_item.default = 0
 p.transaction.each do |t|
-  quantity_per_item[t.item_id] = t.quantity
+  quantity_per_item[t.item_id] += t.quantity
 end
 
 price_per_item = {}
@@ -110,15 +111,14 @@ ids_by_category = {"Tools" => [], "Health" => [], "Electronics" => [], "Kids" =>
                   "Clothing" => []}
 
 b.items.each do |i|
-  ids_by_category.each do |cata,ids|
-    if i.category.include? cata
+  ids_by_category.each do |cate,ids|
+    if i.category.include? cate
       ids.push i.id
     end
   end
 end
 
 revenue_by_item = {}
-revenue_by_item.default = 0
 quantity_per_item.each do |q_id, quant|
   price_per_item.each do |p_id, price|
     if q_id == p_id
@@ -129,15 +129,16 @@ end
 
 revenue_by_category = {}
 revenue_by_category.default = 0
-ids_by_category.each do |cata, c_id|
+ids_by_category.each do |cate, c_id|
   revenue_by_item.each do |r_id, rev|
     if c_id.include? r_id
-      revenue_by_category[cata] += rev
-      revenue_by_category[cata] = revenue_by_category[cata].round(2)
+      revenue_by_category[cate] += rev
+      revenue_by_category[cate] = revenue_by_category[cate].round(2)
     end
   end
 end
+
 most_rev_by_category = revenue_by_category.max_by {|key,value| value}
 puts "#{most_rev_by_category.first} was the most profitable category, bringing in $#{most_rev_by_category.last}"
 
-#find gross per catagory in a hash, then use largest_hash_key
+#find gross per category in a hash, then use largest_hash_key
