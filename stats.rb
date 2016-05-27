@@ -9,10 +9,6 @@ def file_path file_name
   File.expand_path "../data/#{file_name}.json", __FILE__
 end
 
-def largest_hash_key(hash)
-  hash.max_by{|k,v| v}
-end
-
 p = TransactionParser.new file_path("transactions")
 b = DataParser.new file_path("data")
 p.parse!
@@ -29,6 +25,7 @@ end
 
 most_orders_name = ""
 most_orders = user_by_orders.max_by{|key,value| value}
+
 b.users.each do |u|
   if u.id == most_orders.first
     most_orders_name = u.name
@@ -93,9 +90,9 @@ b.items.each do |i|
 end
 
 total_revenue = 0
-quantity_per_item.each do |qkey,qvalue|
-  if !price_per_item[qkey].nil?
-    total_revenue += (qvalue * price_per_item[qkey])
+quantity_per_item.each do |id,quant|
+  if !price_per_item[id].nil?
+    total_revenue += (quant * price_per_item[id])
   end
 end
 puts "Our total revenue was $#{total_revenue}"
@@ -109,6 +106,17 @@ ids_by_category = {"Tools" => [], "Health" => [], "Electronics" => [], "Kids" =>
                   "Garden" => [], "Movies" => [], "Music" => [], "Beauty" => [],
                   "Industrial" => [],"Automotive" => [], "Sports" => [], "Outdoors" => [],
                   "Clothing" => []}
+
+# categories = []
+# b.items.each do |i|
+#   categories.push (i.category.split(" & "))
+# end
+# categories = categories.flatten.uniq
+#
+# ids_by_category2 = {}
+# categories.each do |cate|
+#  ids_by_category2[cate] = []
+# end
 
 b.items.each do |i|
   ids_by_category.each do |cate,ids|
@@ -129,9 +137,9 @@ end
 
 revenue_by_category = {}
 revenue_by_category.default = 0
-ids_by_category.each do |cate, c_id|
+ids_by_category.each do |cate, c_ids|
   revenue_by_item.each do |r_id, rev|
-    if c_id.include? r_id
+    if c_ids.include? r_id
       revenue_by_category[cate] += rev
       revenue_by_category[cate] = revenue_by_category[cate].round(2)
     end
@@ -140,5 +148,3 @@ end
 
 most_rev_by_category = revenue_by_category.max_by {|key,value| value}
 puts "#{most_rev_by_category.first} was the most profitable category, bringing in $#{most_rev_by_category.last}"
-
-#find gross per category in a hash, then use largest_hash_key
