@@ -101,22 +101,22 @@ puts "Our total revenue was $#{total_revenue}"
 puts
 puts "Problem 5: The highest grossing category was __"
 
-ids_by_category = {"Tools" => [], "Health" => [], "Electronics" => [], "Kids" => [],
-                  "Computers" => [], "Jewelery" => [], "Games" => [], "Books" => [],
-                  "Garden" => [], "Movies" => [], "Music" => [], "Beauty" => [],
-                  "Industrial" => [],"Automotive" => [], "Sports" => [], "Outdoors" => [],
-                  "Clothing" => []}
+# ids_by_category_old = {"Tools" => [], "Health" => [], "Electronics" => [], "Kids" => [],
+#                   "Computers" => [], "Jewelery" => [], "Games" => [], "Books" => [],
+#                   "Garden" => [], "Movies" => [], "Music" => [], "Beauty" => [],
+#                   "Industrial" => [],"Automotive" => [], "Sports" => [], "Outdoors" => [],
+#                   "Clothing" => []}
 
-# categories = []
-# b.items.each do |i|
-#   categories.push (i.category.split(" & "))
-# end
-# categories = categories.flatten.uniq
-#
-# ids_by_category2 = {}
-# categories.each do |cate|
-#  ids_by_category2[cate] = []
-# end
+categories = []
+b.items.each do |i|
+  categories.push (i.category.split(" & "))
+end
+categories = categories.flatten.uniq
+
+ids_by_category = {}
+categories.each do |cate|
+ ids_by_category[cate] = []
+end
 
 b.items.each do |i|
   ids_by_category.each do |cate,ids|
