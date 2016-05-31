@@ -25,4 +25,32 @@ class DataParser
                            item.values[3])
     end
   end
+
+  def find_user_by_id user_id
+    users.each do |u|
+      if u.id == user_id
+        return u.name
+      end
+    end
+    return "User not found"
+  end
+
+  def find_item_id_by_name item_name
+    items.each do |i|
+      if i.name == item_name
+        return i.id
+      end
+    end
+    return "Item not found"
+  end
+
+  def find_item_ids item_name
+    item_ids = []
+    items.each do |i|
+      if i.category.include? item_name
+        item_ids.push(i.id)
+      end
+    end
+    return item_ids
+  end
 end

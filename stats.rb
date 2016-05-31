@@ -17,14 +17,14 @@ b.parse!
 #* The user that made the most orders was __
 puts "Problem 1: The user that made the most orders was __"
 
-user_by_orders = {}
-user_by_orders.default = 0
+orders_by_user = {}
+orders_by_user.default = 0
 p.transaction.each do |t|
-  user_by_orders[t.user_id] += 1
+  orders_by_user[t.user_id] += 1
 end
 
 most_orders_name = ""
-most_orders = user_by_orders.max_by{|key,value| value}
+most_orders = orders_by_user.max_by{|key,value| value}
 
 b.users.each do |u|
   if u.id == most_orders.first
@@ -76,7 +76,7 @@ puts "We sold #{tools_sold} items from the Tools category"
 
 #* Our total revenue was __
 puts
-puts "Problem 4: * Our total revenue was __"
+puts "Problem 4: Our total revenue was __"
 
 quantity_per_item = {}
 quantity_per_item.default = 0
@@ -107,14 +107,14 @@ puts "Problem 5: The highest grossing category was __"
 #                   "Industrial" => [],"Automotive" => [], "Sports" => [], "Outdoors" => [],
 #                   "Clothing" => []}
 
-categories = []
+all_categories = []
 b.items.each do |i|
-  categories.push (i.category.split(" & "))
+  all_categories.push (i.category.split(" & "))
 end
-categories = categories.flatten.uniq
+all_categories = all_categories.flatten.uniq
 
 ids_by_category = {}
-categories.each do |cate|
+all_categories.each do |cate|
  ids_by_category[cate] = []
 end
 
